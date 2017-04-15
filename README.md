@@ -41,7 +41,7 @@ Polymer Iron and Paper collections, so as you don't have to deal with the proces
      <dependency>
        <groupId>com.vaadin.polymer</groupId>
        <artifactId>vaadin-gwt-polymer-elements</artifactId>
-       <version>1.7.0.0</version>
+       <version>${latest_version}</version>
        <scope>provided</scope>
      </dependency>
    </dependencies>
@@ -248,3 +248,16 @@ To compile the `vaadin-gwt-polymer-elements` library by yourself.
  1. Run `$ mvn gwt:devmode` to run the demo in SuperDevMode, otherwise run `$ mvn clean package` to
  build the demo application under `target` directory.
  1. Host the demo either: by running for example `$ serve target/gwt-polymer-demo` (requires [serve](https://npmjs.org/packages/serve)) or deploying the generated `target/gwt-polymer-demo.war` to your favourite servlet container.
+
+## Project navigation for contribution
+
+- `npm` is used to fetch all dependencies to build and install the `gwt-api-generator.js` node application.
+- Post installation, `npm` executes the generator which in itself is a build tool written in `gump`. See more at [gwt-api-generator](https://github.com/vaadin/gwt-api-generator)
+- The `gwt-api-generator` is instructed to install the bower components, and generate the java classes and maven pom.
+- Finally maven is run to compile and install the rest of the components.
+
+### Development tips
+When improving this project, it's likely that the workflow will be to make improvements to the `gwt-api-generator` and then rerun it.
+Bear in mind that the npm will use a locally installed version rather than a global one.
+ 1. It may be useful to run `gwt-api-generator$ npm update -g` to reinstall that tool globally. 
+ 1. Followed by `gwt-polymer-elements$ gwt-api-generator <arguments>` from this projects root directory. Take a look at `package.json` for suggested arguments.
